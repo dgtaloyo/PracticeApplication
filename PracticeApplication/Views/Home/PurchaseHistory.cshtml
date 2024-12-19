@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserProfile.cshtml";
+}
+
+<div class="container" ng-controller="PurchaseHistoryController" ng-init="loadPurchaseHistory()">
+    <h5 class="blue-text text-darken-4"><b>PURCHASE HISTORY</b></h5>
+
+    <!-- Table for Purchase History -->
+    <div class="row">
+        <div class="col s12">
+            <table class="highlight responsive-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Country Name</th>
+                        <th>Purchase Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="purchase in purchaseHistory">
+                        <td>{{ purchase.orderId }}</td>
+                        <td>{{ purchase.countryName }}</td>
+                        <td>{{ purchase.purchaseDate }}</td>
+                        <td>{{ purchase.amount | currency }}</td>
+                        <td>{{ purchase.status }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- No Purchases Message -->
+    <div class="row" ng-if="purchaseHistory.length === 0">
+        <div class="col s12 center-align">
+            <p class="grey-text">No purchase history available.</p>
+        </div>
+    </div>
+</div>

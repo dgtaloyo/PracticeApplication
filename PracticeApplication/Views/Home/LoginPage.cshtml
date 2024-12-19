@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "~/Views/Shared/_registrationLayout.cshtml";
+}
+<div class="row rowMain center">
+    <!-- Center the card within the container -->
+    <div class="col s4 m4 l4"></div>
+
+    <div class="col s4 m4 l4">
+        <!-- Card Section -->
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card"
+                     style="border-radius: 20px;
+                            box-shadow: 7px 8px 39px -4px rgba(0,0,0,0);
+                            -webkit-box-shadow: 7px 8px 39px -4px rgba(0,0,0,0.65);
+                            -moz-box-shadow: 7px 8px 39px -4px rgba(0,0,0,0.65);
+                            overflow: hidden;
+                            display: flex;">
+                    <!-- Added flex layout for side-by-side content -->
+                    <!-- Image Section (Left Side) -->
+                    <div class="col s6 m6 l6 hide-on-med-and-down" style="padding: 0;">
+                        <img src="~/Content/Pictures//BestAnimations.gif"
+                             alt="Descriptive Image"
+                             style="width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                    border-radius: 20px 0 0 20px;">
+                    </div>
+                    <!-- Form Section (Right Side) -->
+                    <div class="col s12 m12 l6" style="padding: 20px;">
+                        <div class="card-content white-text">
+
+                            <div class="card-logo center">
+                                <img src="~/Content/Pictures/Tourterra.jpg"
+                                     alt="Logo"
+                                     class="responsive-img"
+                                     style="width: 150px; height: auto; margin: 0 auto 0 auto;">
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix" style="color: green;">account_circle</i>
+                                    <input id="icon_username" type="text" class="validate" ng-model="loginUsername">
+                                    <label for="icon_username" class="black-text">Username</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix" style="color: green;">lock</i>
+                                    <input id="icon_password" type="password" class="validate" ng-model="loginPassword">
+                                    <label for="icon_password" class="black-text">Password</label>
+                                </div>
+                                <div class="row" style="margin:10px">
+                                    <div class="col s12">
+                                        <a class="waves-effect waves-light btn-small green darken-2" ng-click="loginFunc()" style="width:100%">
+                                            <i class="material-icons left">send</i>
+                                            LOGIN
+                                        </a>
+                                    </div>
+                                    <div class="col s12">
+                                        <a class="waves-effect waves-light btn-small red darken-2" ng-click="cleanFunc()" style="width:100%">
+                                            <i class="material-icons left">cancel</i>
+                                            CLEAR
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s2 m2 l2"></div>
+    </div>
+    </div>
+

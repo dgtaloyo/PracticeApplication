@@ -1,0 +1,172 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<body>
+    <!-- Page Content -->
+    <div class="request-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>Request a call back right now ?</h4>
+                    <span>
+                        We value your privacy. Your contact details will be kept confidential and used only for this call back.
+
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <a href="/Home/Contact" class="border-button">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PACKAGE-->
+    <div class="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Featured <em>Packages</em></h2>
+                        <span>
+                            Dive into the ultimate experience with our Ultimate Adventure Package, designed for thrill-seekers and outdoor enthusiasts. This package offers a perfect blend of excitement and relaxation, ensuring an unforgettable adventure.
+
+                        </span>
+                    </div>
+                </div>
+
+                <!-- PACKAGE details -->
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <img src="~/Content/Pictures/rafting-293542.jpg" alt="">
+                        <div class="down-content">
+                            <h4>White-Water Rafting:</h4>
+                            <p>Experience the rush of navigating through rapid waters with professional instructors ensuring your safety.</p>
+                            <a href="/Home/Packages" class="filled-button">View More</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <img src="~/Content/Pictures/tart-2409958.jpg" alt="">
+                        <div class="down-content">
+                            <h4>All-Inclusive Meals:</h4>
+                            <p>Savor delicious, freshly-prepared meals daily, catering to all dietary preferences.</p>
+                            <a href="/Home/Packages" class="filled-button">View More</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-item">
+                        <img src="~/Content/Pictures/mountains-8357180.jpg" alt="">
+                        <div class="down-content">
+                            <h4>Guided Hiking Tours:</h4>
+                            <p>Explore stunning trails with our expert guides who will take you to hidden gems and breathtaking viewpoints.</p>
+                            <a href="/Home/Packages" class="filled-button">View More</a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fun-facts">
+        <div class="container">
+            <div class="more-info-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="left-image">
+                            <img src="~/Content/Pictures/beach-6026018.jpg" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-6 align-self-center">
+                        <div class="right-content">
+                            <span>Who we are</span>
+                            <h2>Get to know about <em>our company</em></h2>
+                            <p>Travelist is a comprehensive online booking platform designed to make reserving services effortless for both users and providers. Catering to various industries including travel, events, and hospitality, our platform is tailored to meet the diverse needs of our users.</p>
+                            <a href="/Home/About" class="filled-button">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="callback-form">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Request a <em>call back</em></h2>
+                        <span>Our travel experts are ready to help you plan your perfect trip. Fill out the form below, and we'll call you back at your convenience.</span>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="contact-form">
+                        <form id="contact" action="" method="post">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-4 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="email" type="text" class="form-control" id="email" placeholder="E-Mail Address" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-4 col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject" required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="border-button">Send Message</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/owl.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/accordions.js"></script>
+
+    <script language="text/Javascript">
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+        function clearField(t) {                   //declaring the array outside of the
+            if (!cleared[t.id]) {                      // function makes it static and global
+                cleared[t.id] = 1;  // you could use true and false, but that's more typing
+                t.value = '';         // with more chance of typos
+                t.style.color = '#fff';
+            }
+        }</script>
+
+</body>

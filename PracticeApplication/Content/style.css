@@ -1,0 +1,67 @@
+﻿body {
+}
+
+.guamBG{
+    background-image:url(Pictures/guam-6026021.jpg);
+    background-size:cover;
+    height:100vh;
+    width:100%
+}
+
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.package-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.package-card:hover {
+    transform: translateY(-10px);
+}
+
+.package-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.package-content {
+    padding: 15px;
+}
+
+.package-content h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.package-content p {
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+.package-content .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.package-content .btn:hover {
+    background-color: #0056b3;
+}
+
+.navbar-brand img {
+    height: 40px;
+    width: auto;
+}

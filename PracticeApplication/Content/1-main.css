@@ -1,0 +1,15 @@
+﻿body {
+}
+
+.darker-transparent-grey {
+    background-color: rgba(200, 200, 200, 0.4);
+}
+
+
+
+.rowMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

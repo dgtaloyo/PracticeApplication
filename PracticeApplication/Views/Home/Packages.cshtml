@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <form id="form1" runat="server">
+        <!-- Packages Section -->
+        <div class="container mt-4">
+            <div class="row">
+                <!-- Package Card 1 -->
+                <div class="col-md-6 col-lg-4 mb-4" ng-repeat="x in records">
+                    <div class="card">
+                        <div class="card-img-top" style="background-image: url('@Url.Content("~/Content/Pictures/guam-6026021.jpg")'); height: 200px; background-size: cover; background-position: center;"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Asia & Oceania</h5>
+                            <button class="btn btn-primary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#description1" aria-expanded="false" aria-controls="description1">
+                                +
+                            </button>
+                            <div class="collapse" id="description1">
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                            <button class="btn btn-success btn-sm w-100">Add to Cart / Order</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package Card 2 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-img-top" style="background-image: url('@Url.Content("~/Content/Pictures/guam-6026021.jpg")'); height: 200px; background-size: cover; background-position: center;"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">America</h5>
+                            <button class="btn btn-primary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#description2" aria-expanded="false" aria-controls="description2">
+                                +
+                            </button>
+                            <div class="collapse" id="description2">
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                            <button class="btn btn-success btn-sm w-100">Add to Cart / Order</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package Card 3 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-img-top" style="background-image: url('@Url.Content("~/Content/Pictures/guam-6026021.jpg")'); height: 200px; background-size: cover; background-position: center;"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Europe</h5>
+                            <button class="btn btn-primary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#description3" aria-expanded="false" aria-controls="description3">
+                                +
+                            </button>
+                            <div class="collapse" id="description3">
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                            <button class="btn btn-success btn-sm w-100">Add to Cart / Order</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package Card 4 -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-img-top" style="background-image: url('@Url.Content("~/Content/Pictures/guam-6026021.jpg")'); height: 200px; background-size: cover; background-position: center;"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Africa</h5>
+                            <button class="btn btn-primary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#description4" aria-expanded="false" aria-controls="description4">
+                                +
+                            </button>
+                            <div class="collapse" id="description4">
+                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                            <button class="btn btn-success btn-sm w-100">Add to Cart / Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
