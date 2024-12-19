@@ -128,32 +128,79 @@ namespace PracticeApplication.Controllers
             return Json(registrationInstance, JsonRequestBehavior.AllowGet);
         }
 
+        // REGISTRATION
         public void AddUser(tblUsersModel userInformation)
         {
             var dateToday = DateTime.Now;
             using (var connect = new CompaniesContext()) 
             {
-               
+                userInformation.createdAt = dateToday;
+                userInformation.updatedAt = dateToday;
+                connect.tblusers.Add(userInformation);
+                connect.SaveChanges();
 
-                try
+            }
+        }
+
+        // Login Action
+        [HttpPost]
+        public JsonResult Login(tblUsersModel user)
+        {
+            Console.WriteLine($"Email: {user.Email}, Password: {user.Password}");
+            using (var context = new CompaniesContext())
+            {
+                // Check user credentials in the database
+                var userInDb = context.tblusers.FirstOrDefault(u => u.Email == user.Email && u.Password == user.Password);
+
+                if (userInDb != null)
                 {
-                    userInformation.createdAt = dateToday;
-                    userInformation.updatedAt = dateToday;
-                    connect.tblusers.Add(userInformation);
-                    connect.SaveChanges();
+                    // Save user details in Session
+                    Session["UserId"] = userInDb.userID;
+                    Session["UserEmail"] = userInDb.Email;
+
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Login successful",
+                    });
                 }
-                catch (Exception ex)
+
+                return Json(new
                 {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.InnerException);
+                    success = false,
+                    message = "Invalid email or password"
+                });
+            }
+        }
 
-                }
+        public JsonResult GetUserSession()
+        {
+            var userId = Session["UserId"];
+            var userEmail = Session["UserEmail"];
 
+            if (userId != null)
+            {
+                return Json(new
+                {
+                    success = true,
+                    userEmail = userEmail,
+                });
+            }
+            else
+            {
+                return Json(new { success = false });
             }
         }
 
 
 
+        // Logout Action
+        [HttpPost]
+        public JsonResult Logout()
+        {
+            Session.Clear(); // Clear all session data
+            return Json(new { success = true, message = "Logged out successfully" });
+        }
 
     }
 }

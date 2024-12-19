@@ -4,10 +4,9 @@
         alert("Page is running correctly.");
     };
 
-   
     var userCredentials = [];
 
-   
+    // Validate Registration Function
     $scope.validateRegistration = function () {
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         var nameRegex = /^[A-Za-z]+$/;
@@ -19,7 +18,6 @@
             return false;
         }
 
-       
         if (!emailRegex.test($scope.userEmail)) {
             alert("Please enter a valid email address.");
             return false;
@@ -43,9 +41,8 @@
         return true;
     };
 
- 
+    // Submit Function
     $scope.submitFunc = function () {
-       
         if ($scope.validateRegistration()) {
             var userFind = userCredentials.find(UFind => UFind.FirstName === $scope.firstName && UFind.LastName === $scope.lastName);
 
@@ -57,19 +54,19 @@
                     Email: $scope.userEmail,
                     Address: $scope.userAddress,
                     phoneNum: $scope.userNumber,
-                    Password: $scope.userPassword  
+                    Password: $scope.userPassword
                 };
                 var postData = PracticeApplicationService.postUser(newUser);
                 postData.then(function (ReturnedData) {
                     var returnedValue = ReturnedData.data.FirstName;
-                })
+                });
 
                 userCredentials.push(newUser);
-                sessionStorage.setItem('userInformation', JSON.stringify(userInformation));
-
                 alert("Registration successful!");
                 $scope.cleanFunc();
                 window.location.href = "/Home/LoginPage";
+                sessionStorage.setItem('userInformation', JSON.stringify(userInformation));
+
             } else {
                 alert("Data is already existing.");
                 $scope.cleanFunc();
@@ -77,7 +74,7 @@
         }
     };
 
-    
+    // Clean Function
     $scope.cleanFunc = function () {
         $scope.firstName = null;
         $scope.lastName = null;
@@ -86,29 +83,29 @@
         $scope.userPassword = null;
         $scope.userAddress = null;
         $scope.userNumber = null;
-        $scope.username = null; 
-        $scope.password = null; 
+        $scope.username = null;
+        $scope.password = null;
     };
 
+    // Login Function
     $scope.loginFunc = function () {
-      
-        if (!$scope.loginUsername || !$scope.loginPassword) {
-            alert("Please enter both username and password.");
-            return;
-        }
+        var credentials = {
+            Email: $scope.loginEmail,
+            Password: $scope.loginPassword
+        };
 
-      
-        var storedUserCredentials = JSON.parse(sessionStorage.getItem('userCredentials')) || [];
-
-    
-        var user = storedUserCredentials.find(cred =>
-            cred.UserName === $scope.loginUsername && cred.UserPassword === $scope.loginPassword);
-
-        if (user) {
-            window.location.href = "/Home/HomePage";
-        } else {
-            alert("Invalid username or password.");
-        }
+        PracticeApplicationService.login(credentials).then(function (response) {
+            // Check if response is valid and contains 'success'
+            if (response && response.success) {
+                $scope.userEmail = response.userEmail;
+                window.location.href = "/Home/HomePage";
+            } else {
+                alert(response ? response.message : "An error occurred.");
+            }
+        }).catch(function (error) {
+            // Handle any errors that occur during the request
+            console.error("Error during login:", error);
+            alert("An error occurred during login.");
+        });
     };
-
 });
