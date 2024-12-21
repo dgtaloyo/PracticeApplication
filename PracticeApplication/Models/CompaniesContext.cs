@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace PracticeApplication.Models
 {
@@ -21,8 +22,9 @@ namespace PracticeApplication.Models
 
         }
 
+        
 
-        public virtual DbSet<tblAdminsModel> tbladmins { get; set; }
+
         public virtual DbSet<tblBookingsModel> tblbookings { get; set; }
         public virtual DbSet<tblInquiriesModel> tblinquiries { get; set; }
         public virtual DbSet<tblPackagesModel> tblpackages { get; set; }
@@ -31,7 +33,6 @@ namespace PracticeApplication.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Configurations.Add(new tblAdminsMap());
             modelBuilder.Configurations.Add(new tblBookingsMap());
             modelBuilder.Configurations.Add(new tblInquiriesMap());
             modelBuilder.Configurations.Add(new tblPackagesMap());

@@ -15,6 +15,7 @@ namespace PracticeApplication.Models
         public string Password { get; set; }
         public string Address { get; set; }
         public string phoneNum { get; set; }
+        public int roleID {  get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }
     }

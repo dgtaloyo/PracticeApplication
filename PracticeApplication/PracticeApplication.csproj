@@ -194,8 +194,6 @@
     <Compile Include="Models\CompaniesContext.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
-    <Compile Include="Models\tblAdminsModel.cs" />
-    <Compile Include="Models\tblAdminsMap.cs" />
     <Compile Include="Models\tblBookingsMap.cs" />
     <Compile Include="Models\tblBookingsModel.cs" />
     <Compile Include="Models\tblInquiriesMap.cs" />

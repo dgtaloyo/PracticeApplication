@@ -136,6 +136,7 @@ namespace PracticeApplication.Controllers
             {
                 userInformation.createdAt = dateToday;
                 userInformation.updatedAt = dateToday;
+                userInformation.roleID = 2;
                 connect.tblusers.Add(userInformation);
                 connect.SaveChanges();
 
@@ -156,10 +157,12 @@ namespace PracticeApplication.Controllers
                 {
                     // Save user details in Session
                     Session["UserId"] = userInDb.userID;
+                    Session["RoleId"] = userInDb.roleID;
                     Session["UserEmail"] = userInDb.Email;
 
                     return Json(new
                     {
+                        roleId = userInDb.roleID,
                         success = true,
                         message = "Login successful",
                     });
@@ -177,6 +180,7 @@ namespace PracticeApplication.Controllers
         {
             var userId = Session["UserId"];
             var userEmail = Session["UserEmail"];
+            var roleId = Session["roleId"];
 
             if (userId != null)
             {
@@ -184,15 +188,14 @@ namespace PracticeApplication.Controllers
                 {
                     success = true,
                     userEmail = userEmail,
-                });
+                    roleID = roleId,
+                }, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new { success = false });
+                return Json(new { success = false }, JsonRequestBehavior.AllowGet);
             }
         }
-
-
 
         // Logout Action
         [HttpPost]
@@ -200,6 +203,16 @@ namespace PracticeApplication.Controllers
         {
             Session.Clear(); // Clear all session data
             return Json(new { success = true, message = "Logged out successfully" });
+        }
+
+        //Admin Packages Table
+        public ActionResult PackageTable()
+        {
+            using (var context = new CompaniesContext())
+            {
+                var packages = context.tblpackages.ToList();
+                return View(packages);
+            }
         }
 
     }

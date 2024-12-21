@@ -1,7 +1,11 @@
 ﻿app.controller("PracticeApplicationController", function ($scope, $window, PracticeApplicationService) {
     // Alert Function
+
+    $scope.isLoggedIn = false;
+
     $scope.alertFunc = function () {
         alert("Page is running correctly.");
+        console.log("Alert is being ran.")
     };
 
     var userCredentials = [];
@@ -91,14 +95,18 @@
     $scope.loginFunc = function () {
         var credentials = {
             Email: $scope.loginEmail,
-            Password: $scope.loginPassword
+            Password: $scope.loginPassword,
         };
-
+            
         PracticeApplicationService.login(credentials).then(function (response) {
             // Check if response is valid and contains 'success'
             if (response && response.success) {
                 $scope.userEmail = response.userEmail;
-                window.location.href = "/Home/HomePage";
+                if (response.roleId == 1) {
+                    window.location.href = "/Home/Dashboard";
+                } else {
+                    window.location.href = "/Home/HomePage";
+                }
             } else {
                 alert(response ? response.message : "An error occurred.");
             }
@@ -108,4 +116,43 @@
             alert("An error occurred during login.");
         });
     };
+
+    $scope.checkUserSession = function () {
+        PracticeApplicationService.getUserSession().then(function (response) {
+            if (response && response.success) {
+                // User is logged in, set variables for the dropdown
+                $scope.isLoggedIn = true;
+                $scope.userEmail = response.userEmail;
+            } else {
+                // User is not logged in, show login button
+                $scope.isLoggedIn = false;
+            }
+        }).catch(function (error) {
+            console.error("Error fetching user session:", error);
+            $scope.isLoggedIn = false; // Default to logged-out state
+        });
+    };
+
+    // Call this function when the page loads
+    $scope.checkUserSession();
+
+
+    $scope.logout = function () {
+        PracticeApplicationService.logout().then(function (response) {
+            if (response && response.success) {
+                $scope.isLoggedIn = false;
+                $scope.userEmail = null;
+                window.location.href = "/Home/HomePage"; // Redirect to the default page
+            } else {
+                alert("An error occurred during logout.");
+            }
+        }).catch(function (error) {
+            console.error("Error during logout:", error);
+            alert("An error occurred during logout.");
+        });
+    };
+
+
+
+
 });

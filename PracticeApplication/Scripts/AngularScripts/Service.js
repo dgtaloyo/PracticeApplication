@@ -48,12 +48,16 @@
 
     // Check if the user is logged in
     this.getUserSession = function () {
-        return $http.get('/Home/GetUserSession');
+        return $http.get('/Home/GetUserSession').then(function (response) {
+            return response.data;
+        });
     };
 
     // Logout function
     this.logout = function () {
-        return $http.post('/Home/Logout');
+        return $http.post('/Home/Logout').then(function (response) {
+            return response.data;
+        });
     };
 
 

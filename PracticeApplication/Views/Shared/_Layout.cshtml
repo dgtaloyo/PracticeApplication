@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="~/Content/owl.css">
 </head>
 
-<body>
+<body ng-app="PracticeApplication" ng-controller="PracticeApplicationController" ng-init="checkUserSession()">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
             <!-- Add the logo and website name -->
@@ -35,18 +35,18 @@
             <!-- Navbar Links -->
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-
+                   
                     <li><a href="/Home/HomePage" class="nav-link">Home</a></li>
                     <li><a href="/Home/About" class="nav-link">About</a></li>
                     <li><a href="/Home/Contact" class="nav-link">Contact</a></li>
                     <li><a href="/Home/Packages" class="nav-link">Packages</a></li>
                 </ul>
 
-              
+
                 <ul class="navbar-nav ms-auto">
                     <!-- Display either login or profile dropdown -->
                     <li class="nav-item" ng-if="!isLoggedIn">
-                        <a class="nav-link" href="#" ng-click="loginPage()">Login</a>
+                        <a class="nav-link" href="/Home/LoginPage" ng-click="loginPage()">Login</a>
                     </li>
                     <li class="nav-item dropdown" ng-if="isLoggedIn">
                         <a class="nav-link dropdown-toggle" href="#" id="myAccountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -154,8 +154,8 @@
     <script src="~/Scripts/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/angular.js"></script>
-    <script src="~/Scripts/AngularScripts/Controller.js"></script>
     <script src="~/Scripts/AngularScripts/Module.js"></script>
+    <script src="~/Scripts/AngularScripts/Controller.js"></script>
     <script src="~/Scripts/AngularScripts/Service.js"></script>
 
     <script>
