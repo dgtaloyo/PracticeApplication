@@ -60,5 +60,27 @@
         });
     };
 
+    //Admin Package Get
+    this.adminPackage = function () {
+        return $http.get("/Home/AdminPackage").then(
+            function (response) {
+                console.log("API Response:", response.data);
+                return response;
+            },
+            function (error) {
+                console.error("API Error:", error);
+                return error;
+            }
+        );
+    };
 
+    //Admin Add Package
+    this.addPackage = function (addPackage) {
+        var Add = $http({
+            method: "post",
+            url: "/Home/addAdminPackage",
+            data: addPackage
+        })
+        return Add;
+    }
 });

@@ -1,4 +1,9 @@
 ﻿app.controller("PracticeApplicationController", function ($scope, $window, PracticeApplicationService) {
+    $scope.$on('$viewContentLoaded', function () {
+        var modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
+    });
+
     // Alert Function
 
     $scope.isLoggedIn = false;
@@ -60,7 +65,7 @@
                     phoneNum: $scope.userNumber,
                     Password: $scope.userPassword
                 };
-                var postData = PracticeApplicationService.postUser(newUser);
+                var postData = PracticeApplicationService.add(newUser);
                 postData.then(function (ReturnedData) {
                     var returnedValue = ReturnedData.data.FirstName;
                 });
@@ -152,7 +157,68 @@
         });
     };
 
+    //Admin Package
+    $scope.adminPackage = function () {
+        var getData = PracticeApplicationService.adminPackage();
+        getData.then(function (ReturnedData) {
+            $scope.package = ReturnedData.data;
+            
+                $('#adminPackageTbl').DataTable({
+                    data: $scope.package,
+                    columns: [
+                        { data: 'packageID' },
+                        { data: 'packageName' },
+                        { data: 'packageLocation' },
+                        { data: 'packagePrice' },
+                        { data: 'packageStart' },
+                        { data: 'packageEnd' },
+                        { data: 'packageDetails' },
+                        { data: 'createdAt' },
+                        { data: 'updatedAt' }
+                    ]
+                });
+           
+        });
+    }
 
+    // Admin Add Package
+    $scope.packageAdd = function () {
+        var addPackage = {
+            packageName: $scope.packageName,
+            packageLoc: $scope.packageLoc,
+            packagePrice: $scope.packagePrice,
+            packageStart: $scope.packageStart,
+            packageEnd: $scope.packageEnd,
+            packageDetails: $scope.packageDetails
+        }
 
+        postData.then(function (ReturnedData) {
+            var returnedPackage = ReturnedData.data;
+        })
+    }
+
+    var packageInfo = [];
+    $scope.packageAddSubmit = function () {
+       var userFind = packageInfo.find(UFind => UFind.packageName === $scope.packageName);
+
+        if (userFind === undefined) {
+            var newPackage = {
+                packageName: $scope.packageName,
+                packageLocation: $scope.packageLoc,
+                packagePrice: $scope.packagePrice,
+                packageStart: $scope.packageStart,
+                packageEnd: $scope.packageEnd,
+                packageDetails: $scope.packageDetails
+            };
+            var postData = PracticeApplicationService.addPackage(newPackage);
+            postData.then(function (ReturnedData) {
+                var returnedValue = ReturnedData.data.packageName;
+            });
+
+            packageInfo.push(newPackage);
+            alert("Added successfully!");
+        }
+
+    }
 
 });

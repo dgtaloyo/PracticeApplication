@@ -1,54 +1,116 @@
 ﻿@{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
 
+        var elems = document.querySelectorAll('.datepicker');
+        var instance = M.Datepicker.init(elems,
+            {
+                autoClose: true,
+                format: 'mmm dd yyyy',
+                minDate: new Date(),
+                defaultDate: new Date(),
+                setDefaultDate: true,
+                showClearBtn: true,
+                i18n: {
+                    cancel: 'Cancel',
+                    clear: 'Clear',
+                    done: 'OK'
+                }
+            });
+    });
+
+</script>
 <div class="container" style="max-width: 100%;">
-
     <div class="row">
         <div class="col s12 m12 l12">
-            <!-- Modal Trigger -->
-            <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+            <!-- Add Modal Trigger -->
+            <a class="waves-effect waves-light btn modal-trigger" href="#editModal">Add Package</a>
 
-            <!-- Modal Structure -->
-            <div id="modal1" class="modal">
-                <div class="modal-content">
-                    <h4>Modal Header</h4>
-                    <p>A bunch of text</p>
-                </div>
+            <!-- Add Modal Structure -->
+            <div id="editModal" class="modal">
+                <div class="modal-content text-center">
+                    <h4>Add Package</h4>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="icon_prefix" type="text" class="validate" ng-model="packageName">
+                                    <label for="icon_prefix">Package Name</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">place</i>
+                                    <input id="icon_telephone" type="text" class="validate" ng-model="packageLoc">
+                                    <label for="icon_telephone">Package Location</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">attach_money</i>
+                                    <input id="icon_price" type="number" class="validate" ng-model="packagePrice">
+                                    <label for="icon_price">Package Price</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input id="icon_start" type="text" class="datepicker" ng-model="packageStart">
+                                    <label for="icon_start">Package Start Date</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input id="icon_end" type="text" class="datepicker" ng-model="packageEnd">
+                                    <label for="icon_end">Package End Date</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">create</i>
+                                    <textarea id="icon_details" type="text" class="materialize-textarea" ng-model="packageDetails"></textarea>
+                                    <label for="icon_details">Package Details</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                    <a class="modal-close waves-effect waves-green btn-f    lat" ng-click="packageAddSubmit()">Submit</a>
                 </div>
             </div>
+        </div>
 
-            @model IEnumerable<PracticeApplication.Models.tblPackagesModel>
-            @if (Model != null && Model.Any())
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Package Name</th>
-                            <th>Package Type</th>
-                            <th>Package Location</th>
-                            <th>Package Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var package in Model)
-                        {
-                            <tr>
-                                <td>@package.packageName</td>
-                                <td>@package.packageType</td>
-                                <td>@package.packageLocation</td>
-                                <td>@package.packagePrice</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <p>No packages available.</p>
-            }
+        <div class="col s12 m12 l12">
+            <table id="adminPackageTbl" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Package ID
+                        </th>
+                        <th>
+                            Package Name
+                        </th>
+                        <th>
+                            Package Name
+                        </th>
+                        <th>
+                            Start Date
+                        </th>
+                        <th>
+                            End Date
+                        </th>
+                        <th>
+                            Package Details
+                        </th>
+                        <th>
+                            Created At
+                        </th>
+                        <th>
+                            Updated At
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

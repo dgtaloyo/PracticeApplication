@@ -215,5 +215,41 @@ namespace PracticeApplication.Controllers
             }
         }
 
+        //Admin Packages Table
+        public JsonResult AdminPackage()
+        {
+            using (var db = new CompaniesContext())
+            {
+                var packageInfo = db.tblpackages.Select(x => new
+                {
+                    x.packageID,
+                    x.packageName,
+                    x.packageLocation,
+                    x.packagePrice,
+                    x.packageDetails,
+                    x.packageStart,
+                    x.packageEnd,
+                    x.createdAt,
+                    x.updatedAt
+                }).ToList();
+
+                return Json(packageInfo, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //Add package
+        public void addAdminPackage(tblPackagesModel newPackage)
+        {
+            var dateToday = DateTime.Now;
+            using (var connect = new CompaniesContext())
+            {
+                newPackage.createdAt = dateToday;
+                newPackage.updatedAt = dateToday;
+                connect.tblpackages.Add(newPackage);
+                connect.SaveChanges();
+
+            }
+        }
+
     }
 }
