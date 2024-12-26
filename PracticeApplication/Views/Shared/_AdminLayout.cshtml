@@ -7,10 +7,11 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="~/Content/materialize.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/1-main.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/datatables.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body ng-app="PracticeApplication" ng-controller="PracticeApplicationController"
+<body ng-app="TourTerraApplication" ng-controller="TourTerraApplicationController"
       style="background-image: url('/Content/Pictures/guam-6026021.jpg');
              background-size: cover;
              background-position: center;
@@ -45,12 +46,9 @@
                 <span class="white-text">@ViewBag.Username</span>
             </div>
         </li>
-        <li><a href="/Home/Dashboard" class="waves-effect black-text"><i class="material-icons black-text">dashboard</i>Dashboard</a></li>
-        <li><a href="/Home/Customers" class="waves-effect black-text"><i class="material-icons black-text">account_circle</i>Customers</a></li>
+        <li><a href="/Home/Customers" class="waves-effect black-text"><i class="material-icons black-text">account_circle</i>Users</a></li>
         <li><a href="/Home/Booking" class="waves-effect black-text"><i class="material-icons black-text">book</i>Booking</a></li>
-        <li><a href="/Home/AdminPackages" class="waves-effect black-text"><i class="material-icons black-text">book</i>Packages</a></li>
-        <li><a href="/Home/Inquiries" class="waves-effect black-text"><i class="material-icons black-text">book</i>Inquiries</a></li>
-        <li><a href="/Home/About" class="waves-effect black-text"><i class="material-icons black-text">info</i>About</a></li>
+        <li><a href="/Home/AdminPackages" class="waves-effect black-text"><i class="material-icons black-text">filter_none</i>Packages</a></li>
         <li><a href="/Home/HomePage" class="waves-effect black-text"><i class="material-icons black-text">exit_to_app</i>Logout</a></li>
     </ul>
 
@@ -61,6 +59,7 @@
 
     <!-- Scripts -->
     <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
     <script src="~/Scripts/materialize.js"></script>
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/AngularScripts/Module.js"></script>

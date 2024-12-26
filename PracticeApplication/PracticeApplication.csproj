@@ -196,8 +196,6 @@
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\tblBookingsMap.cs" />
     <Compile Include="Models\tblBookingsModel.cs" />
-    <Compile Include="Models\tblInquiriesMap.cs" />
-    <Compile Include="Models\tblInquiriesModel.cs" />
     <Compile Include="Models\tblPackagesMap.cs" />
     <Compile Include="Models\tblPackagesModel.cs" />
     <Compile Include="Models\tblUsersMap.cs" />
@@ -222,6 +220,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\datatables.min.css" />
     <Content Include="Content\gazzoorace.jpg" />
     <Content Include="Content\Images\gazzoorace.jpg" />
     <Content Include="Content\materialize.css" />
@@ -231,7 +230,9 @@
     <Content Include="Content\Pictures\beach-6026018.jpg" />
     <Content Include="Content\Pictures\BestAnimations.gif" />
     <Content Include="Content\Pictures\guam-6026021.jpg" />
+    <Content Include="Content\Pictures\mountains-6544522.jpg" />
     <Content Include="Content\Pictures\mountains-8357180.jpg" />
+    <Content Include="Content\Pictures\ocean-7890172.jpg" />
     <Content Include="Content\Pictures\rafting-293542.jpg" />
     <Content Include="Content\Pictures\rowing-7453508.jpg" />
     <Content Include="Content\Pictures\tart-2409958.jpg" />
@@ -285,6 +286,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chart.js" />
     <Content Include="Scripts\chart.min.js" />
+    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -1080,14 +1082,12 @@
     <Content Include="Views\Home\Packages.cshtml" />
     <Content Include="Views\Home\TourPage.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\UserPage.cshtml" />
     <Content Include="Views\Shared\_UserProfile.cshtml" />
     <Content Include="Views\Home\PurchaseHistory.cshtml" />
     <Content Include="Views\Home\Booking.cshtml" />
     <Content Include="Views\Home\AdminPackages.cshtml" />
     <Content Include="Views\Home\Customers.cshtml" />
-    <Content Include="Views\Home\Inquiries.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

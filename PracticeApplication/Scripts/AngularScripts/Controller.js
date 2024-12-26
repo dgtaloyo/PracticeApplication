@@ -1,17 +1,10 @@
-﻿app.controller("PracticeApplicationController", function ($scope, $window, PracticeApplicationService) {
+﻿app.controller("TourTerraApplicationController", function ($scope, $window, TourTerraApplicationService) {
     $scope.$on('$viewContentLoaded', function () {
         var modals = document.querySelectorAll('.modal');
         M.Modal.init(modals);
     });
 
-    // Alert Function
-
     $scope.isLoggedIn = false;
-
-    $scope.alertFunc = function () {
-        alert("Page is running correctly.");
-        console.log("Alert is being ran.")
-    };
 
     var userCredentials = [];
 
@@ -19,7 +12,7 @@
     $scope.validateRegistration = function () {
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         var nameRegex = /^[A-Za-z]+$/;
-        var phoneRegex = /^[0-9]{11,12}$/;
+        var phoneRegex = /^[0-9]{10,11}$/;
         var passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;
 
         if (!nameRegex.test($scope.firstName) || !nameRegex.test($scope.lastName) || !nameRegex.test($scope.MiddleName)) {
@@ -49,7 +42,7 @@
 
         return true;
     };
-
+    
     // Submit Function
     $scope.submitFunc = function () {
         if ($scope.validateRegistration()) {
@@ -65,7 +58,7 @@
                     phoneNum: $scope.userNumber,
                     Password: $scope.userPassword
                 };
-                var postData = PracticeApplicationService.add(newUser);
+                var postData = TourTerraApplicationService.add(newUser);
                 postData.then(function (ReturnedData) {
                     var returnedValue = ReturnedData.data.FirstName;
                 });
@@ -77,7 +70,11 @@
                 sessionStorage.setItem('userInformation', JSON.stringify(userInformation));
 
             } else {
-                alert("Data is already existing.");
+                Swal.fire({
+                    title: "Error!",
+                    text: "Data already exists.",
+                    icon: "error"
+                });
                 $scope.cleanFunc();
             }
         }
@@ -102,13 +99,12 @@
             Email: $scope.loginEmail,
             Password: $scope.loginPassword,
         };
-            
-        PracticeApplicationService.login(credentials).then(function (response) {
-            // Check if response is valid and contains 'success'
+
+        TourTerraApplicationService.login(credentials).then(function (response) {
             if (response && response.success) {
                 $scope.userEmail = response.userEmail;
                 if (response.roleId == 1) {
-                    window.location.href = "/Home/Dashboard";
+                    window.location.href = "/Home/Customers";
                 } else {
                     window.location.href = "/Home/HomePage";
                 }
@@ -116,34 +112,30 @@
                 alert(response ? response.message : "An error occurred.");
             }
         }).catch(function (error) {
-            // Handle any errors that occur during the request
-            console.error("Error during login:", error);
-            alert("An error occurred during login.");
+            Swal.fire({
+                title: "Error!",
+                text: "An error occurred during login.",
+                icon: "error"
+            });
         });
     };
 
     $scope.checkUserSession = function () {
-        PracticeApplicationService.getUserSession().then(function (response) {
+        TourTerraApplicationService.getUserSession().then(function (response) {
             if (response && response.success) {
-                // User is logged in, set variables for the dropdown
                 $scope.isLoggedIn = true;
                 $scope.userEmail = response.userEmail;
             } else {
-                // User is not logged in, show login button
                 $scope.isLoggedIn = false;
             }
         }).catch(function (error) {
-            console.error("Error fetching user session:", error);
-            $scope.isLoggedIn = false; // Default to logged-out state
+            $scope.isLoggedIn = false;
         });
     };
-
-    // Call this function when the page loads
     $scope.checkUserSession();
 
-
     $scope.logout = function () {
-        PracticeApplicationService.logout().then(function (response) {
+        TourTerraApplicationService.logout().then(function (response) {
             if (response && response.success) {
                 $scope.isLoggedIn = false;
                 $scope.userEmail = null;
@@ -152,44 +144,226 @@
                 alert("An error occurred during logout.");
             }
         }).catch(function (error) {
-            console.error("Error during logout:", error);
-            alert("An error occurred during logout.");
+            Swal.fire({
+                title: "Error!",
+                text: "An error occurred during logout.",
+                icon: "error"
+            });
         });
     };
 
+    //Load Packages
+    $scope.loadPackages = function () {
+        TourTerraApplicationService.loadPackages().then(function (response) {
+            if (response && response.success) {
+                $scope.packages = response.packages;
+
+            }
+        })
+    };
+
+    $scope.loadPackages();
+
+    $scope.getUserSession = function () {
+        return $http({
+            method: "get",
+            url: "/Home/GetUserSession",
+        }).then(function (response) {
+            if (response.data.success) {
+                return response.data;
+            } else {
+                return null;
+            }
+        })
+    }
+    
+
+
+    // Customer New Booking/Order
+    var userSession = TourTerraApplicationService.getUserSession();
+    console.log(userSession);
+    var bookingInfo = [];
+    $scope.newOrder = function (package) {
+        
+        var newOrder = {
+            packageID: package.packageID,
+            userID: userSession.userID,
+            fromDate: package.packageStart,
+            toDate: package.packageEnd,
+            Status: "Pending",
+        };
+
+
+        var postData = TourTerraApplicationService.addOrder(newOrder);
+        postData.then(function (ReturnedData) {
+            var returnedValue = ReturnedData.data.packageID;
+        });
+
+        bookingInfo.push(newOrder);
+        Swal.fire({
+            title: "Good job!",
+            text: "You successfully ordered!",
+            icon: "success"
+        });
+        
+    }
+
+
     //Admin Package
     $scope.adminPackage = function () {
-        var getData = PracticeApplicationService.adminPackage();
+        var getData = TourTerraApplicationService.adminPackage();
         getData.then(function (ReturnedData) {
-            $scope.package = ReturnedData.data;
+            console.log(ReturnedData.data);
+            $scope.package = ReturnedData.data.map(function (item) {
+                return {
+                    ...item,
+
+                    packageStart: new Date(item.packageStart).toLocaleString(),
+                    packageEnd: new Date(item.packageEnd).toLocaleString(),
+                    createdAt: new Date(item.createdAt).toLocaleString(),
+                    updatedAt: new Date(item.updatedAt).toLocaleString()
+                };
+            });
             
-                $('#adminPackageTbl').DataTable({
-                    data: $scope.package,
-                    columns: [
-                        { data: 'packageID' },
-                        { data: 'packageName' },
-                        { data: 'packageLocation' },
-                        { data: 'packagePrice' },
-                        { data: 'packageStart' },
-                        { data: 'packageEnd' },
-                        { data: 'packageDetails' },
-                        { data: 'createdAt' },
-                        { data: 'updatedAt' }
-                    ]
-                });
+            $(document).ready(function () {
+                if (!$.fn.DataTable.isDataTable('#adminPackageTbl')) {
+                    $('#adminPackageTbl').DataTable({
+                        data: $scope.package,
+                        columns: [
+                            { data: 'packageID' },
+                            { data: 'packageName' },
+                            { data: 'packageLocation' },
+                            { data: 'packagePrice' },
+                            { data: 'packageStart' },
+                            { data: 'packageEnd' },
+                            { data: 'packageDetails' },
+                            { data: 'createdAt' },
+                            { data: 'updatedAt' }
+                        ]
+                    });
+                } else {
+                    $('#adminPackageTbl').DataTable.destroy();
+                }
+            })
+        });
+    }
+    $scope.adminPackage();
+
+    //Admin User
+    $scope.adminUser = function () {
+        var getData = TourTerraApplicationService.adminUser();
+        getData.then(function (ReturnedData) {
+            console.log(ReturnedData.data);
+            $scope.user = ReturnedData.data.map(function (item) {
+                return {
+                    ...item,
+
+                    createdAt: new Date(item.createdAt).toLocaleString(),
+                    updatedAt: new Date(item.updatedAt).toLocaleString()
+                };
+            });
+            
+            $(document).ready(function () {
+                if (!$.fn.DataTable.isDataTable('#adminUserTbl')) {
+                    $('#adminUserTbl').DataTable({
+                        data: $scope.user,
+                        columns: [
+                            { data: 'userID' },
+                            { data: 'Email' },
+                            { data: 'fName' },
+                            { data: 'lName' },
+                            { data: 'mName' },
+                            { data: 'Address' },
+                            { data: 'phoneNum' },
+                            { data: 'createdAt' },
+                            { data: 'updatedAt' }
+                        ]
+                    });
+                } else {
+                    $('#adminUserTbl').DataTable.destroy();
+                }
+            })
            
         });
     }
+    $scope.adminUser();
 
-    // Admin Add Package
-    $scope.packageAdd = function () {
-        var addPackage = {
-            packageName: $scope.packageName,
-            packageLoc: $scope.packageLoc,
-            packagePrice: $scope.packagePrice,
-            packageStart: $scope.packageStart,
-            packageEnd: $scope.packageEnd,
-            packageDetails: $scope.packageDetails
+    //Admin Booking
+    $scope.adminBooking = function () {
+        var getData = TourTerraApplicationService.adminBooking();
+        getData.then(function (ReturnedData) {
+            console.log(ReturnedData.data);
+            $scope.user = ReturnedData.data.map(function (item) {
+                return {
+                    ...item,
+
+
+                    toDate: new Date(item.toDate).toLocaleString(),
+                    fromDate: new Date(item.fromDate).toLocaleString(),
+                    createdAt: new Date(item.createdAt).toLocaleString(),
+                    updatedAt: new Date(item.updatedAt).toLocaleString()
+                };
+            });
+            
+            $(document).ready(function () {
+                if (!$.fn.DataTable.isDataTable('#adminBookingTbl')) {
+                    $('#adminBookingTbl').DataTable({
+                        data: $scope.booking,
+                        columns: [
+                            { data: 'bookingID' },
+                            { data: 'packageID' },
+                            { data: 'userID' },
+                            { data: 'fromDate' },
+                            { data: 'toDate' },
+                            { data: 'Comment' },
+                            { data: 'Status' },
+                            { data: 'createdAt' },
+                            { data: 'updatedAt' }
+                        ]
+                    });
+                } else {
+                    $('#adminBookingTbl').DataTable.destroy();
+                }
+            })
+        });
+    }
+    $scope.adminBooking();
+
+    var packageInfo = [];
+    $scope.packageAddSubmit = function () {
+       var packageFind = packageInfo.find(UFind => UFind.packageName === $scope.packageName);
+
+        if (packageFind === undefined) {
+            var newPackage = {
+                packageName: $scope.packageName,
+                packageLocation: $scope.packageLoc,
+                packagePrice: $scope.packagePrice,
+                packageStart: $scope.packageStart,
+                packageEnd: $scope.packageEnd,
+                packageDetails: $scope.packageDetails,
+            };
+
+            var postData = TourTerraApplicationService.addPackage(newPackage);
+            postData.then(function (ReturnedData) {
+                var returnedValue = ReturnedData.data.packageName;
+            });
+            
+            packageInfo.push(newPackage);
+            alert("Added successfully!");
+        }
+
+    }
+
+    // Admin Add Customer
+    $scope.customerAdd = function () {
+        var addCustomer = {
+            fName: $scope.customerFname,
+            lName: $scope.customerLname,
+            mName: $scope.customerMname,
+            Email: $scope.customerEmail,
+            Password: $scope.customerPassword,
+            Address: $scope.customerAddress,
+            phoneNum: $scope.customerPhone
         }
 
         postData.then(function (ReturnedData) {
@@ -197,28 +371,33 @@
         })
     }
 
-    var packageInfo = [];
-    $scope.packageAddSubmit = function () {
-       var userFind = packageInfo.find(UFind => UFind.packageName === $scope.packageName);
+    var customerInfo = [];
+    $scope.customerAddSubmit = function () {
+       var customerFind = customerInfo.find(UFind => UFind.customerEmail === $scope.customerEmail);
 
-        if (userFind === undefined) {
-            var newPackage = {
-                packageName: $scope.packageName,
-                packageLocation: $scope.packageLoc,
-                packagePrice: $scope.packagePrice,
-                packageStart: $scope.packageStart,
-                packageEnd: $scope.packageEnd,
-                packageDetails: $scope.packageDetails
+        if (customerFind === undefined) {
+            var newCustomer = {
+                fName: $scope.customerFname,
+                lName: $scope.customerLname,
+                mName: $scope.customerMname,
+                Email: $scope.customerEmail,
+                Password: $scope.customerPassword,
+                Address: $scope.customerAddress,
+                phoneNum: $scope.customerPhone
             };
-            var postData = PracticeApplicationService.addPackage(newPackage);
+            var postData = TourTerraApplicationService.addCustomer(newCustomer);
             postData.then(function (ReturnedData) {
-                var returnedValue = ReturnedData.data.packageName;
+                var returnedValue = ReturnedData.data.customerEmail;
             });
 
-            packageInfo.push(newPackage);
-            alert("Added successfully!");
+            customerInfo.push(newCustomer);
+            Swal.fire({
+                title: "Success!",
+                text: "Added successfully!",
+                icon: "success"
+            });
         }
 
     }
-
+   
 });

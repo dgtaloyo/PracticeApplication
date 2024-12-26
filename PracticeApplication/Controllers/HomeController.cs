@@ -1,5 +1,4 @@
-﻿using PracticeApplication.Models;
-using RegistrationApplication.Models;
+﻿using TourTerraApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
@@ -7,8 +6,9 @@ using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using RegistrationApplication.Models;
 
-namespace PracticeApplication.Controllers
+namespace TourTerraApplication.Controllers
 {
     public class HomeController : Controller
     {
@@ -187,6 +187,7 @@ namespace PracticeApplication.Controllers
                 return Json(new
                 {
                     success = true,
+                    userID = userId,
                     userEmail = userEmail,
                     roleID = roleId,
                 }, JsonRequestBehavior.AllowGet);
@@ -197,22 +198,53 @@ namespace PracticeApplication.Controllers
             }
         }
 
+        public JsonResult LoadPackages()
+        {
+            var userId = Session["UserId"];
+            var userEmail = Session["UserEmail"];
+            var roleId = Session["roleId"];
+            using (var db = new CompaniesContext())
+            {
+                var packages = db.tblpackages.OrderByDescending(p => p.packageID).ToList(); // If you want the most recent package
+
+                return Json(new
+                {
+                    success = true,
+                    packages = packages.Select(p => new
+                    {
+                       p.packageID,
+                       p.packageName,
+                       p.packagePrice,
+                       p.packageLocation,
+                       p.packageDetails,
+                       p.packageStart,
+                       p.packageEnd
+                    }),
+                    userId = userId,
+                    roleID = roleId,
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public void orderPackages(tblBookingsModel newOrder)
+        {
+            var dateToday = DateTime.Now;
+            using (var connect = new CompaniesContext())
+            {
+                newOrder.createdAt = dateToday;
+                newOrder.updatedAt = dateToday;
+                connect.tblbookings.Add(newOrder);
+                connect.SaveChanges();
+
+            }
+        }
+
+
         // Logout Action
         [HttpPost]
         public JsonResult Logout()
         {
             Session.Clear(); // Clear all session data
             return Json(new { success = true, message = "Logged out successfully" });
-        }
-
-        //Admin Packages Table
-        public ActionResult PackageTable()
-        {
-            using (var context = new CompaniesContext())
-            {
-                var packages = context.tblpackages.ToList();
-                return View(packages);
-            }
         }
 
         //Admin Packages Table
@@ -236,6 +268,49 @@ namespace PracticeApplication.Controllers
                 return Json(packageInfo, JsonRequestBehavior.AllowGet);
             }
         }
+        //Admin User Table
+        public JsonResult AdminUser()
+        {
+            using (var db = new CompaniesContext())
+            {
+                var userInfo = db.tblusers.Select(x => new
+                {
+                    x.userID,
+                    x.fName,
+                    x.lName,
+                    x.mName,
+                    x.Address,
+                    x.phoneNum,
+                    x.Email,
+                    x.createdAt,
+                    x.updatedAt
+                }).ToList();
+
+                return Json(userInfo, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
+        //Admin Booking Table
+        public JsonResult AdminBooking()
+        {
+            using (var db = new CompaniesContext())
+            {
+                var bookingInfo = db.tblbookings.Select(x => new
+                {
+                    x.bookingID,
+                    x.packageID,
+                    x.userID,
+                    x.fromDate,
+                    x.toDate,
+                    x.Comment,
+                    x.Status,
+                    x.createdAt,
+                    x.updatedAt
+                }).ToList();
+
+                return Json(bookingInfo, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         //Add package
         public void addAdminPackage(tblPackagesModel newPackage)
@@ -246,6 +321,34 @@ namespace PracticeApplication.Controllers
                 newPackage.createdAt = dateToday;
                 newPackage.updatedAt = dateToday;
                 connect.tblpackages.Add(newPackage);
+                connect.SaveChanges();
+
+            }
+        }
+
+        //Add customer
+        public void addAdminCustomer(tblUsersModel newCustomer)
+        {
+            var dateToday = DateTime.Now;
+            using (var connect = new CompaniesContext())
+            {
+                newCustomer.createdAt = dateToday;
+                newCustomer.updatedAt = dateToday;
+                newCustomer.roleID = 2;
+                connect.tblusers.Add(newCustomer);
+                connect.SaveChanges();
+
+            }
+        }
+        //Add booking
+        public void addAdminBooking(tblBookingsModel newBooking)
+        {
+            var dateToday = DateTime.Now;
+            using (var connect = new CompaniesContext())
+            {
+                newBooking.createdAt = dateToday;
+                newBooking.updatedAt = dateToday;
+                connect.tblbookings.Add(newBooking);
                 connect.SaveChanges();
 
             }

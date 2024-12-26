@@ -1,4 +1,4 @@
-﻿app.service("PracticeApplicationService", function ($http) {
+﻿app.service("TourTerraApplicationService", function ($http) {
 
     this.GetConnection = function () {
         return $http.get("/Home/GetConnection");
@@ -52,6 +52,22 @@
             return response.data;
         });
     };
+    // Loads the packages
+    this.loadPackages = function () {
+        return $http.get('/Home/LoadPackages').then(function (response) {
+            return response.data;
+        });
+    };
+    // Customer Order packages
+        this.addOrder = function (addOrder) {
+            var Add = $http({
+                method: "post",
+                url: "/Home/orderPackages",
+                data: addOrder
+            })
+            return Add;
+        }
+    
 
     // Logout function
     this.logout = function () {
@@ -62,16 +78,19 @@
 
     //Admin Package Get
     this.adminPackage = function () {
-        return $http.get("/Home/AdminPackage").then(
-            function (response) {
-                console.log("API Response:", response.data);
-                return response;
-            },
-            function (error) {
-                console.error("API Error:", error);
-                return error;
-            }
-        );
+        return $http.get("/Home/AdminPackage")
+    };
+    //Admin User Get
+    this.adminUser = function () {
+        return $http.get("/Home/AdminUser")
+    };
+    //Admin Booking Get
+    this.adminBooking = function () {
+        return $http.get("/Home/AdminBooking")
+    };
+    //Admin Inquiries Get
+    this.adminInquiries = function () {
+        return $http.get("/Home/AdminInquiries")
     };
 
     //Admin Add Package
@@ -80,6 +99,24 @@
             method: "post",
             url: "/Home/addAdminPackage",
             data: addPackage
+        })
+        return Add;
+    }
+    //Admin Add Customer
+    this.addCustomer = function (addCustomer) {
+        var Add = $http({
+            method: "post",
+            url: "/Home/addAdminCustomer",
+            data: addCustomer
+        })
+        return Add;
+    }
+    //Admin Add Booking
+    this.addBooking = function (addBooking) {
+        var Add = $http({
+            method: "post",
+            url: "/Home/addAdminBooking",
+            data: addBooking
         })
         return Add;
     }

@@ -4,7 +4,7 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Web;
 
-namespace PracticeApplication.Models
+namespace TourTerraApplication.Models
 {
     public class tblUsersMap : EntityTypeConfiguration<tblUsersModel>
     {

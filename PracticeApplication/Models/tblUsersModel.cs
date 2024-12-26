@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PracticeApplication.Models
+namespace TourTerraApplication.Models
 {
     public class tblUsersModel
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PracticeApplication.Models
+namespace TourTerraApplication.Models
 {
     [DbConfigurationType(typeof(MySql.Data.EntityFramework.MySqlEFConfiguration))]
     public class CompaniesContext : DbContext
@@ -26,7 +26,6 @@ namespace PracticeApplication.Models
 
 
         public virtual DbSet<tblBookingsModel> tblbookings { get; set; }
-        public virtual DbSet<tblInquiriesModel> tblinquiries { get; set; }
         public virtual DbSet<tblPackagesModel> tblpackages { get; set; }
         public virtual DbSet<tblUsersModel> tblusers {  get; set; }
 
@@ -34,7 +33,6 @@ namespace PracticeApplication.Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Configurations.Add(new tblBookingsMap());
-            modelBuilder.Configurations.Add(new tblInquiriesMap());
             modelBuilder.Configurations.Add(new tblPackagesMap());
             modelBuilder.Configurations.Add(new tblUsersMap());
         }

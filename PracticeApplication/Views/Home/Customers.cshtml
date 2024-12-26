@@ -2,4 +2,119 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
+
+        /*var elems = document.querySelectorAll('.datepicker');
+        var instance = M.Datepicker.init(elems,
+            {
+                autoClose: true,
+                format: 'mmm dd yyyy',
+                minDate: new Date(),
+                defaultDate: new Date(),
+                setDefaultDate: true,
+                showClearBtn: true,
+                i18n: {
+                    cancel: 'Cancel',
+                    clear: 'Clear',
+                    done: 'OK'
+                }
+            });*/
+    });
+
+</script>
+<div class="container" style="max-width: 100%;">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <!-- Add Modal Trigger -->
+            <a class="waves-effect waves-light btn modal-trigger" href="#editModal">Add Customer</a>
+
+            <!-- Add Modal Structure -->
+            <div id="editModal" class="modal">
+                <div class="modal-content text-center">
+                    <h4>Add Customer</h4>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="icon_fname" type="text" class="validate" ng-model="customerFname">
+                                    <label for="icon_fname">First Name</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="icon_lname" type="text" class="validate" ng-model="customerLname">
+                                    <label for="icon_lname">Last Name</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="icon_mname" type="text" class="validate" ng-model="customerMname">
+                                    <label for="icon_mname">Middle Name</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">email</i>
+                                    <input id="icon_email" type="email" class="validate" ng-model="customerEmail">
+                                    <label for="icon_email">Email</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">password</i>
+                                    <input id="icon_password" type="password" class="validate" ng-model="customerPassword">
+                                    <label for="icon_password">Password</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">home</i>
+                                    <input id="icon_address" type="text" class="validate" ng-model="customerAddress">
+                                    <label for="icon_address">Address</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">phone</i>
+                                    <input id="icon_phone" type="number" class="datepicker" ng-model="customerPhone">
+                                    <label for="icon_phone">Phone Number</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="modal-close waves-effect waves-green btn-flat" ng-click="customerAddSubmit()">Submit</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m12 l12">
+            <table id="adminUserTbl" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            User ID
+                        </th>
+                        <th>
+                            Role ID
+                        </th>
+                        <th>
+                            User Name
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                        <th>
+                            Created At
+                        </th>
+                        <th>
+                            Updated At
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 

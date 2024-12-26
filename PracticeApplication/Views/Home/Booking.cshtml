@@ -1,5 +1,123 @@
 ﻿@{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
 
+        var elems = document.querySelectorAll('.datepicker');
+        var instance = M.Datepicker.init(elems,
+            {
+                autoClose: true,
+                format: 'mmm dd yyyy',
+                minDate: new Date(),
+                defaultDate: new Date(),
+                setDefaultDate: true,
+                showClearBtn: true,
+                i18n: {
+                    cancel: 'Cancel',
+                    clear: 'Clear',
+                    done: 'OK'
+                }
+            });
+    });
 
+</script>
+<div class="container" style="max-width: 100%;">
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <!-- Add Modal Trigger -->
+            <a class="waves-effect waves-light btn modal-trigger" href="#editModal">Add Booking</a>
+
+            <!-- Add Modal Structure -->
+            <div id="editModal" class="modal">
+                <div class="modal-content text-center">
+                    <h4>Add Booking</h4>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input id="icon_prefix" type="text" class="validate" ng-model="packageName">
+                                    <label for="icon_prefix">Booking Name</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">place</i>
+                                    <input id="icon_telephone" type="text" class="validate" ng-model="packageLoc">
+                                    <label for="icon_telephone">Package Location</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">attach_money</i>
+                                    <input id="icon_price" type="number" class="validate" ng-model="packagePrice">
+                                    <label for="icon_price">Package Price</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input id="icon_start" type="text" class="datepicker" ng-model="packageStart">
+                                    <label for="icon_start">Package Start Date</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">date_range</i>
+                                    <input id="icon_end" type="text" class="datepicker" ng-model="packageEnd">
+                                    <label for="icon_end">Package End Date</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">create</i>
+                                    <textarea id="icon_details" type="text" class="materialize-textarea" ng-model="packageDetails"></textarea>
+                                    <label for="icon_details">Package Details</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="icon_details">Package Image</label>
+                                    <i class="material-icons prefix">create</i>
+                                    <input type="file" file-model="packageImage" ng-model="packageImage" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="modal-close waves-effect waves-green btn-flat" ng-click="packageAddSubmit()">Submit</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m12 l12">
+            <table id="adminBookingTbl" class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Package ID
+                        </th>
+                        <th>
+                            User ID
+                        </th>
+                        <th>
+                            From Date
+                        </th>
+                        <th>
+                            To Date
+                        </th>
+                        <th>
+                            Commend
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Created At
+                        </th>
+                        <th>
+                            Updated At
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

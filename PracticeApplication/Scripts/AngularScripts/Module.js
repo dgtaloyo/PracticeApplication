@@ -1,1 +1,1 @@
-﻿var app = angular.module('PracticeApplication', []);
+﻿var app = angular.module('TourTerraApplication', []);

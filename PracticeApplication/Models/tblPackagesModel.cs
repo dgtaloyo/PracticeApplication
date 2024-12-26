@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace PracticeApplication.Models
+namespace TourTerraApplication.Models
 {
     public class tblPackagesModel
     {
@@ -14,7 +14,7 @@ namespace PracticeApplication.Models
         public float packagePrice { get; set; }
         public string packageDetails { get; set; }
         public DateTime packageStart { get; set; }
-        public DateTime packageEnd     { get; set; }
+        public DateTime packageEnd  { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }
 
