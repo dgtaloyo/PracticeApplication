@@ -85,10 +85,6 @@ namespace TourTerraApplication.Controllers
             return View();
         }
 
-        public ActionResult Inquiries()
-        {
-            return View();
-        }
 
         public string GetConnection()
         {
